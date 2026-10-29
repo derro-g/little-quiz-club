@@ -13,16 +13,25 @@ Keeping these jobs in separate files makes it easier to find and change things.
 ## Run the site
 
 You don't need to install anything. Open `index.html` in a web browser to play
-the quiz on your computer.
+the frontend prototype on your computer.
 
-## Change a quiz question
+## Try the classroom prototype
 
-1. Open `script.js` in a text editor.
-2. Find the `questions` list near the top.
-3. Each question has its question text, four answers, a `correct` number, and a
-   fun fact. The answer numbers start at zero: `0` is the first answer, `1` the
-   second, `2` the third, and `3` the fourth.
-4. Save the file, then refresh the page in your browser.
+1. In **For teachers**, choose **Create a test**. Add a title and at least one
+   question, fill in all four answer choices, choose the correct answer, and
+   set the time and points.
+2. Save the test and note its code.
+3. Choose **For students**, enter the code and a pretend student name, then
+   start and finish the test.
+4. Return to **For teachers** and open that test's **Results** page.
+
+The sample test has the code `QUIZ42`. **Reset local demo data** removes tests
+and results created in this browser.
+
+This is only a frontend demonstration. Test codes, correct answers, names, and
+results are stored in this browser, not shared with other devices, and are not
+protected by teacher accounts. Do not enter real student information. A
+backend must be connected before using this for real classroom tests.
 
 ## Free GitHub Pages hosting
 
@@ -40,6 +49,5 @@ After you push future changes to `main`, GitHub Pages will publish them.
 ## Step-by-step plan
 
 See the [building guide](BUILDING-GUIDE.md) for our milestone checklist, what
-is finished, what we are working on next, and how we will build the teacher
-test, student access code, individual question timers, scoring, and results
-flow.
+is finished, what we are working on next, and how we will connect this
+teacher/student prototype to real accounts and shared storage.

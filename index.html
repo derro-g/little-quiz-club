@@ -4,60 +4,158 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f5ef">
+  <meta name="description" content="A classroom quiz prototype for teachers and students.">
   <title>Little Quiz Club</title>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
 <body>
   <div class="page">
-    <header>
-      <div class="brand"><span class="brand-mark" aria-hidden="true">?</span> Little Quiz Club</div>
-      <div class="header-note">A little curiosity goes a long way.</div>
+    <header class="site-header">
+      <a class="brand" href="#" id="home-link" aria-label="Little Quiz Club home">
+        <span class="brand-mark" aria-hidden="true">?</span>
+        <span>Little Quiz Club</span>
+      </a>
+      <div class="prototype-label"><span class="status-dot"></span> Frontend prototype</div>
     </header>
 
     <main>
-      <section class="quiz-card" aria-live="polite">
-        <div id="welcome">
-          <div class="eyebrow">The everyday quiz</div>
-          <h1>Ready for a<br>little brain break?</h1>
-          <p class="intro">Five fun questions about our wonderfully curious world. No pressure, just play.</p>
-          <div class="details">
-            <span class="detail">✦ 5 questions</span>
-            <span class="detail">◷ About 2 minutes</span>
-            <span class="detail">♡ Just for fun</span>
+      <div class="prototype-notice" role="note">
+        <span class="notice-icon" aria-hidden="true">i</span>
+        <p><strong>Demo mode:</strong> test and result data are saved only in this browser. There are no real accounts yet. Please use pretend names, not real student information.</p>
+      </div>
+
+      <nav class="role-switch" aria-label="Choose a view">
+        <button class="role-button active" id="teacher-tab" type="button" aria-pressed="true">For teachers</button>
+        <button class="role-button" id="student-tab" type="button" aria-pressed="false">For students</button>
+      </nav>
+
+      <section id="teacher-view" aria-labelledby="teacher-heading">
+        <div id="teacher-dashboard">
+          <div class="welcome-row">
+            <div>
+              <p class="eyebrow">Teacher workspace</p>
+              <h1 id="teacher-heading">Your classroom,<br>your quizzes.</h1>
+              <p class="intro">Create a test, share its code, and see how your students did.</p>
+            </div>
+            <div class="welcome-art" aria-hidden="true"><span>✦</span><span>?</span><span>✦</span></div>
           </div>
-          <button class="primary-button" id="start-button" type="button">Let's play <span aria-hidden="true">→</span></button>
+
+          <div class="section-heading">
+            <div>
+              <h2>Your tests</h2>
+              <p>Tests and attempts saved on this device.</p>
+            </div>
+            <button class="primary-button" id="create-test-button" type="button"><span aria-hidden="true">＋</span> Create a test</button>
+          </div>
+          <div class="test-list" id="test-list"></div>
+          <div class="demo-reset-row"><button class="text-button" id="reset-demo-button" type="button">Reset local demo data</button></div>
         </div>
 
-        <div id="quiz" class="hidden">
-          <div class="quiz-topline">
-            <span id="question-count">Question 1 of 5</span>
-            <span id="score-count">Score: 0</span>
-          </div>
-          <div class="progress-track" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0">
-            <div class="progress-bar" id="progress-bar"></div>
-          </div>
-          <h2 class="question-title" id="question-title"></h2>
-          <p class="question-copy">Choose the answer you think is right.</p>
-          <div class="answers" id="answers"></div>
-          <p class="feedback" id="feedback" role="status"></p>
-          <div class="quiz-actions">
-            <button class="primary-button hidden" id="next-button" type="button">Next question →</button>
-          </div>
+        <div id="test-editor" class="panel hidden">
+          <button class="back-button" id="editor-back-button" type="button">← Back to tests</button>
+          <p class="eyebrow">Test builder</p>
+          <h1>Create a test</h1>
+          <p class="intro">Add your questions, set how long students get, and choose the points for a correct answer.</p>
+          <form id="test-form">
+            <label class="field-label" for="test-title">Test title</label>
+            <input id="test-title" name="title" type="text" maxlength="80" placeholder="e.g. Science revision" required>
+            <div class="editor-heading">
+              <div><h2>Questions</h2><p>Each question has four answer choices.</p></div>
+              <span class="question-count-pill" id="editor-question-count">1 question</span>
+            </div>
+            <div id="question-editor-list" class="question-editor-list"></div>
+            <button class="secondary-button add-question-button" id="add-question-button" type="button">＋ Add a question</button>
+            <div class="editor-actions">
+              <button class="secondary-button" id="cancel-test-button" type="button">Cancel</button>
+              <button class="primary-button" type="submit">Save test</button>
+            </div>
+          </form>
         </div>
 
-        <div id="results" class="hidden">
-          <div class="result-icon" aria-hidden="true">✦</div>
-          <div class="eyebrow">That's a wrap</div>
-          <h1 id="result-title">Nicely done!</h1>
-          <p class="score-line" id="result-copy"></p>
-          <button class="primary-button" id="restart-button" type="button">Play again <span aria-hidden="true">↻</span></button>
+        <div id="teacher-results" class="panel hidden">
+          <button class="back-button" id="results-back-button" type="button">← Back to tests</button>
+          <p class="eyebrow">Test report</p>
+          <h1 id="report-title">Results</h1>
+          <p class="intro" id="report-summary"></p>
+          <div class="results-table-wrap">
+            <table class="results-table">
+              <thead><tr><th>Student name</th><th>Score</th><th>Completed</th></tr></thead>
+              <tbody id="report-rows"></tbody>
+            </table>
+          </div>
+          <p class="empty-message hidden" id="report-empty">No students have finished this test yet. Share the test code to get started.</p>
         </div>
       </section>
+
+      <section id="student-view" class="hidden" aria-labelledby="student-heading">
+        <div id="student-join" class="join-layout">
+          <div class="join-copy">
+            <p class="eyebrow">Student corner</p>
+            <h1 id="student-heading">Your test<br>starts here.</h1>
+            <p class="intro">Enter the code your teacher shared and the name you want them to see.</p>
+            <div class="join-points">
+              <div><span class="point-icon">01</span><span>Enter your test code</span></div>
+              <div><span class="point-icon">02</span><span>Use your own name</span></div>
+              <div><span class="point-icon">03</span><span>Take the test at your pace</span></div>
+            </div>
+          </div>
+          <form class="join-card" id="join-form">
+            <div class="join-card-icon" aria-hidden="true">→</div>
+            <h2>Join a test</h2>
+            <p>Your teacher will give you a test code.</p>
+            <label class="field-label" for="join-code">Test code</label>
+            <input id="join-code" name="code" type="text" maxlength="8" placeholder="e.g. QUIZ42" autocomplete="off" required>
+            <label class="field-label" for="student-name">Your name</label>
+            <input id="student-name" name="studentName" type="text" minlength="2" maxlength="40" placeholder="Enter your name" autocomplete="given-name" required>
+            <p class="form-message hidden" id="join-message" role="alert"></p>
+            <button class="primary-button full-width" type="submit">Find my test <span aria-hidden="true">→</span></button>
+          </form>
+        </div>
+
+        <div id="student-ready" class="panel hidden">
+          <p class="eyebrow">You’re in</p>
+          <h1 id="ready-title">Ready to begin?</h1>
+          <p class="intro" id="ready-details"></p>
+          <div class="details" id="ready-pills"></div>
+          <p class="ready-reminder">Once you begin, each question has its own timer. Your time starts when you open the question.</p>
+          <button class="primary-button" id="begin-test-button" type="button">Start my test <span aria-hidden="true">→</span></button>
+        </div>
+
+        <div id="student-quiz" class="panel hidden">
+          <div class="quiz-topline">
+            <span id="student-question-count">Question 1 of 5</span>
+            <span id="student-score">0 points</span>
+          </div>
+          <div class="progress-track" id="student-progress-track" role="progressbar" aria-label="Test progress" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0">
+            <div class="progress-bar" id="student-progress-bar"></div>
+          </div>
+          <div class="timer-row"><span>Time left</span><span id="timer-value" class="timer-value">20s</span></div>
+          <div class="timer-track"><div class="timer-bar" id="timer-bar"></div></div>
+          <h2 class="question-title" id="student-question-title" tabindex="-1"></h2>
+          <p class="question-copy">Choose one answer before the timer runs out.</p>
+          <div class="answers" id="student-answers"></div>
+          <p class="feedback" id="student-feedback" role="status"></p>
+          <div class="quiz-actions">
+            <button class="primary-button hidden" id="student-next-button" type="button">Next question →</button>
+          </div>
+        </div>
+
+        <div id="student-result" class="panel hidden">
+          <div class="result-icon" aria-hidden="true">✦</div>
+          <p class="eyebrow result-eyebrow">Test complete</p>
+          <h1 id="student-result-title">Nice work!</h1>
+          <p class="score-line" id="student-result-copy"></p>
+          <div class="result-details" id="student-result-details"></div>
+          <p class="ready-reminder">Your result has been saved in this browser's demo data. Your teacher can see it on this device.</p>
+          <button class="secondary-button" id="student-done-button" type="button">Back to join page</button>
+        </div>
+      </section>
+
+      <p class="app-message hidden" id="app-message" role="status"></p>
     </main>
 
     <footer>Made for curious minds, everywhere.</footer>
   </div>
-
 </body>
 </html>

@@ -25,12 +25,15 @@ version first.
 - **Current milestone:** 1 — Publish the website with GitHub Pages
 - **Finished:** The original five-question quiz works, and its content, styling,
   and behavior are in separate files.
+- **Frontend prototype:** Teacher test creation, shareable demo codes, student
+  names, individual timers, scoring, and teacher results work in one browser.
+  These are not real accounts or shared online data.
 - **Product direction:** Teacher accounts, teacher-made tests, access codes,
   individually timed student attempts, scores, and teacher-visible results.
 - **Still to do:** Turn on GitHub Pages in the repository settings and confirm
   the published website opens.
 - **Project repository:** <https://github.com/derro-g/little-quiz-club>
-- **Next milestone:** 2 — Choose how the website will store accounts, tests,
+- **Next milestone:** 3 — Choose how the website will store accounts, tests,
   attempts, and results.
 
 ## Our milestones
@@ -58,7 +61,26 @@ are saved in the GitHub repository.
 GitHub Pages is suitable for the static website and has a free plan. We should
 check GitHub's current plan and usage limits as the project grows.
 
-### 2. Choose a backend for accounts and test data
+### 2. Build and try the classroom frontend prototype — done
+
+- [x] Let a teacher create a test with questions, four answer choices, points,
+  and a timer for each question.
+- [x] Give each test a demo access code and let the teacher open or close it.
+- [x] Let a student join with a code and display name, take an individual
+  timed attempt, and see a result.
+- [x] Show saved demo results in the teacher's results page.
+- [x] Keep demo information in this browser and label the prototype clearly.
+- [x] Try creating a test, joining it as a pretend student, finishing it, and
+  checking the teacher's results page.
+- [x] Try an incorrect answer, let a question timer expire, close a test, and
+  check how the prototype responds.
+- [x] Confirm the layout fits a phone-sized screen and a computer viewport.
+
+**Done means:** The classroom workflow makes sense and the screens behave as
+expected. These browser-only results do not sync across devices and must not be
+used for real student information.
+
+### 3. Choose a backend for accounts and test data
 
 - [ ] Compare free-tier services for teacher sign-in, a database, and secure
   access from the website.
@@ -80,7 +102,7 @@ teacher accounts or a shared database. The website will need a separate
 backend service for those features. We can keep the website on free GitHub
 Pages, but must check the backend service's limits as the project grows.
 
-### 3. Add teacher sign-in and test creation
+### 4. Add teacher sign-in and test creation
 
 - [ ] Let a teacher create an account and sign in.
 - [ ] Build a teacher page for creating a test with a title and questions.
@@ -91,7 +113,7 @@ Pages, but must check the backend service's limits as the project grows.
 **Done means:** A signed-in teacher can create, save, reopen, and edit their
 own test. Other teachers' tests are not exposed as theirs.
 
-### 4. Create test codes and let students join
+### 5. Create secure test codes and let students join
 
 - [ ] Let a teacher open a saved test for students and generate a hard-to-guess
   access code.
@@ -104,7 +126,7 @@ own test. Other teachers' tests are not exposed as theirs.
 **Done means:** A student with a valid code can join the right test, and a
 student without a valid code cannot start an attempt.
 
-### 5. Build individually timed student attempts
+### 6. Build individually timed student attempts
 
 - [ ] Start a student's own attempt when they choose to begin.
 - [ ] Show one question at a time and start that question's timer for that
@@ -118,7 +140,7 @@ student without a valid code cannot start an attempt.
 student's answers, timers, and score belong to their own attempt. The backend,
 not just the student's browser, must check timing and scoring.
 
-### 6. Show results to students and teachers
+### 7. Show results to students and teachers
 
 - [ ] Show each student their result after they finish.
 - [ ] Give the teacher a results page listing student names, scores, and
@@ -130,7 +152,7 @@ not just the student's browser, must check timing and scoring.
 **Done means:** A completed student sees their own score and the teacher can
 review the test's student results without exposing results to the wrong people.
 
-### 7. Final checks, publishing, and next improvements
+### 8. Final checks, publishing, and next improvements
 
 - [ ] Test the complete game on a phone and computer, including separate
   student attempts.
@@ -148,6 +170,10 @@ The first version will not synchronize a live classroom game where every
 student sees each question at the same time. It will not require student
 accounts either: a test code and a display name are enough. We can revisit
 these choices after the individual-attempt version works.
+
+The current frontend is a prototype, not a secure test service. Correct
+answers and results are visible in this browser's saved data. We must connect
+and secure a backend before using real tests or student information.
 
 ## How we will work together
 

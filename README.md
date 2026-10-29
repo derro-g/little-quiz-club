@@ -37,16 +37,8 @@ This project is a static website, which GitHub Pages can host for free:
 
 After you push future changes to `main`, GitHub Pages will publish them.
 
-## The plan
+## Step-by-step plan
 
-We'll build toward a quiz experience inspired by Kahoot, in manageable stages:
-
-1. Organize the current quiz into separate files (done).
-2. Make it easier to create and choose quizzes.
-3. Add game features such as a timer and a leaderboard.
-4. Explore live multiplayer rooms.
-
-GitHub Pages can host the website itself, but it cannot run the server needed
-to synchronize a live game between different players. When we reach
-multiplayer, we'll choose a free-tier backend if one fits the project; free
-plans and their limits can change.
+See the [building guide](BUILDING-GUIDE.md) for our milestone checklist, what
+is finished, what we are working on next, and how the project can grow toward
+live multiplayer.

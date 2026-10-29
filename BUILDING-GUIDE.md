@@ -1,19 +1,37 @@
 # Little Quiz Club: step-by-step building guide
 
-This guide is our shared map for growing the project into a quiz game inspired
-by Kahoot. We will work through one milestone at a time, explain new concepts
-as they come up, and update this page when a milestone is finished. You do not
-need prior coding experience.
+This guide is our shared map for building a classroom quiz website. We will
+work through one milestone at a time, explain new concepts as they come up,
+and update this page when a milestone is finished. You do not need prior
+coding experience.
+
+## What we are building
+
+1. A teacher signs in, creates a test, and shares its access code with students.
+2. A student enters the code and their name, then takes that test on their own.
+   Students do not have to wait for each other: every student has their own
+   attempt and question timers.
+3. Each question has a time limit and a point value. The student's result is
+   calculated when they finish.
+4. The student sees their result, and the teacher can see the results for
+   students who took the test.
+
+This is a classroom test flow, not a live game where everyone answers the same
+question at the same moment. We'll build the simpler individual-attempt
+version first.
 
 ## Where we are now
 
 - **Current milestone:** 1 — Publish the website with GitHub Pages
 - **Finished:** The original five-question quiz works, and its content, styling,
   and behavior are in separate files.
+- **Product direction:** Teacher accounts, teacher-made tests, access codes,
+  individually timed student attempts, scores, and teacher-visible results.
 - **Still to do:** Turn on GitHub Pages in the repository settings and confirm
   the published website opens.
 - **Project repository:** <https://github.com/derro-g/little-quiz-club>
-- **Next coding milestone:** 2 — Make the quiz easier to use and test.
+- **Next milestone:** 2 — Choose how the website will store accounts, tests,
+  attempts, and results.
 
 ## Our milestones
 
@@ -40,77 +58,96 @@ are saved in the GitHub repository.
 GitHub Pages is suitable for the static website and has a free plan. We should
 check GitHub's current plan and usage limits as the project grows.
 
-### 2. Make the basic game sturdy
+### 2. Choose a backend for accounts and test data
 
-- [ ] Test the quiz on a phone-sized screen and a computer.
-- [ ] Check that the quiz can be used with a keyboard as well as a mouse.
-- [ ] Review question wording, answer feedback, score, and replay behavior.
-- [ ] Fix any problems we find before adding more features.
+- [ ] Compare free-tier services for teacher sign-in, a database, and secure
+  access from the website.
+- [ ] Check current costs and usage limits, data privacy terms, sign-in options,
+  and whether a payment method is required.
+- [ ] Plan which information to store: teacher account, test, access code,
+  student display name, answers, and result. Collect as little student
+  information as possible.
+- [ ] Decide how long test codes stay active and who can view results.
+- [ ] Keep private credentials and correct answers out of public website files.
 
-**Done means:** A player can comfortably start, finish, and replay the quiz on
-different screen sizes, including without a mouse.
+**Done means:** We have chosen a service that fits the budget and written down
+how teacher accounts, tests, access codes, student attempts, and results will
+be protected. We will check the service's current terms before relying on its
+free plan.
 
-### 3. Add a quiz library
+**Important:** GitHub Pages hosts the website files, but it does not provide
+teacher accounts or a shared database. The website will need a separate
+backend service for those features. We can keep the website on free GitHub
+Pages, but must check the backend service's limits as the project grows.
 
-- [ ] Represent each quiz with a title and a list of questions.
-- [ ] Make a simple home screen where a player can choose a quiz.
-- [ ] Keep the existing everyday quiz as the first choice.
+### 3. Add teacher sign-in and test creation
 
-**Done means:** Players can choose between at least two quizzes without
-changing code.
+- [ ] Let a teacher create an account and sign in.
+- [ ] Build a teacher page for creating a test with a title and questions.
+- [ ] For each question, let the teacher set answer choices, mark the correct
+  answer, choose a time limit, and set points.
+- [ ] Let the teacher review and save a test, then see their saved tests.
 
-### 4. Let people make and share quizzes
+**Done means:** A signed-in teacher can create, save, reopen, and edit their
+own test. Other teachers' tests are not exposed as theirs.
 
-- [ ] Build a beginner-friendly form for adding questions and answer choices.
-- [ ] Let the quiz creator mark the correct answer and preview the quiz.
-- [ ] Start with saving quizzes in that browser and exporting/importing a quiz
-  file, so this feature does not need a paid service or server.
-- [ ] Explain that browser-saved quizzes are not automatically shared across
-  devices.
+### 4. Create test codes and let students join
 
-**Done means:** Someone can create, preview, save, and transfer a quiz without
-editing `script.js`.
+- [ ] Let a teacher open a saved test for students and generate a hard-to-guess
+  access code.
+- [ ] Show the code and let the teacher close the test when it is no longer
+  accepting attempts.
+- [ ] Let a student enter the code and a display name without creating an
+  account.
+- [ ] Show a clear message if a code is invalid, closed, or expired.
 
-### 5. Add optional game settings
+**Done means:** A student with a valid code can join the right test, and a
+student without a valid code cannot start an attempt.
 
-- [ ] Let the player choose whether to use a question timer.
-- [ ] Show the timer clearly and handle time running out.
-- [ ] Add simple points and a results summary.
-- [ ] Make sure the game still works when the timer is turned off.
+### 5. Build individually timed student attempts
 
-**Done means:** Players can finish a quiz with or without a timer and see a
-clear score at the end.
+- [ ] Start a student's own attempt when they choose to begin.
+- [ ] Show one question at a time and start that question's timer for that
+  student.
+- [ ] Save answers and score correct answers using the question's point value.
+- [ ] Handle skipped questions, time running out, refreshes, and attempts to
+  answer after time expires.
+- [ ] Calculate and save the final result reliably.
 
-### 6. Explore live multiplayer
+**Done means:** Students can take the same test independently, and each
+student's answers, timers, and score belong to their own attempt. The backend,
+not just the student's browser, must check timing and scoring.
 
-- [ ] First agree on the rules: who hosts, how players join, when questions
-  appear, how answers are scored, and when a game ends.
-- [ ] Compare backend services that offer a free tier and real-time updates.
-- [ ] Check their current usage limits, data handling, and whether a payment
-  method is required before choosing one.
-- [ ] Keep private server credentials out of browser code and GitHub.
-- [ ] Build a small test room before connecting it to the full quiz.
+### 6. Show results to students and teachers
 
-**Done means:** A host can start a room, players on separate devices can join
-with a code, and their game state and final scores stay in sync during a test
-game.
+- [ ] Show each student their result after they finish.
+- [ ] Give the teacher a results page listing student names, scores, and
+  completion status for each test.
+- [ ] Make sure students can only see their own result, not other students'
+  private results.
+- [ ] Check that the teacher can only access results for their own tests.
 
-**Important:** GitHub Pages can serve the website files, but cannot itself run
-the always-on server needed to synchronize a live game. Multiplayer needs a
-separate service. We will investigate free tiers when we reach this milestone;
-their prices, limits, and terms may change, so do not assume live hosting will
-remain free or promise unlimited players.
+**Done means:** A completed student sees their own score and the teacher can
+review the test's student results without exposing results to the wrong people.
 
-### 7. Final checks and launch
+### 7. Final checks, publishing, and next improvements
 
-- [ ] Test the complete game on a phone and computer, including a multiplayer
-  session if we build one.
-- [ ] Check error states, accessibility, and what happens if someone
-  disconnects.
+- [ ] Test the complete game on a phone and computer, including separate
+  student attempts.
+- [ ] Check keyboard access, error states, duplicate names, and what happens if
+  someone loses connection or refreshes.
+- [ ] Test sign-in, test-code access, time limits, and who can view results.
 - [ ] Update the setup instructions and publish the finished version.
 
 **Done means:** A new player can open the website and understand how to play,
 and the project guide matches what the game actually does.
+
+## Not in the first version
+
+The first version will not synchronize a live classroom game where every
+student sees each question at the same time. It will not require student
+accounts either: a test code and a display name are enough. We can revisit
+these choices after the individual-attempt version works.
 
 ## How we will work together
 
@@ -135,5 +172,5 @@ discussing them first.
 - **GitHub Pages:** GitHub's service for publishing a static website from a
   repository.
 - **Backend:** A separate online service that stores or coordinates data.
-  Synchronized multiplayer needs one because separate players' browsers do not
-  automatically know what each other is doing.
+  This project needs one for teacher sign-in, shared tests, test codes, and
+  results. GitHub Pages only serves the website files.

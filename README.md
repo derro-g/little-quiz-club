@@ -40,5 +40,6 @@ After you push future changes to `main`, GitHub Pages will publish them.
 ## Step-by-step plan
 
 See the [building guide](BUILDING-GUIDE.md) for our milestone checklist, what
-is finished, what we are working on next, and how the project can grow toward
-live multiplayer.
+is finished, what we are working on next, and how we will build the teacher
+test, student access code, individual question timers, scoring, and results
+flow.
